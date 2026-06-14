@@ -679,6 +679,38 @@ NayePankh Foundation Tech Team`
     animate();
   }
 
+  // --- Theme Toggle Logic ---
+  const themeToggleBtn = document.getElementById('theme-toggle-btn');
+  
+  function initTheme() {
+    const savedTheme = localStorage.getItem('nayepankh_theme');
+    const isLight = savedTheme === 'light';
+    document.body.classList.toggle('light-theme', isLight);
+    updateThemeIcon(isLight);
+  }
+
+  function updateThemeIcon(isLight) {
+    if (themeToggleBtn) {
+      const icon = themeToggleBtn.querySelector('i');
+      if (icon) {
+        if (isLight) {
+          icon.className = 'fa-solid fa-sun';
+        } else {
+          icon.className = 'fa-solid fa-moon';
+        }
+      }
+    }
+  }
+
+  if (themeToggleBtn) {
+    themeToggleBtn.addEventListener('click', () => {
+      const isLight = document.body.classList.toggle('light-theme');
+      localStorage.setItem('nayepankh_theme', isLight ? 'light' : 'dark');
+      updateThemeIcon(isLight);
+    });
+  }
+
   // --- Load Saved States on Startup ---
+  initTheme();
   loadOnboardingState();
 });
