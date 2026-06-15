@@ -1274,7 +1274,7 @@ nav a.active::after {
   color: var(--text-secondary);
 }
 
-/* FAQ Accordion Section */
+/* FAQ Accordion Sectionn */
 .faq-section {
   padding: 60px 0;
 }
