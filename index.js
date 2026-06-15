@@ -7,7 +7,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   // --- Constants & Database ---
   const PLATFORMS = ['instagram', 'linkedin', 'youtube', 'facebook', 'twitter'];
-  
+
   const TRACKS_DB = {
     frontend: {
       title: "Frontend Developer Track",
@@ -151,13 +151,13 @@ NayePankh Foundation Tech Team`
   const checkboxes = document.querySelectorAll('.social-checkbox');
   const progressCircle = document.getElementById('onboarding-progress-circle');
   const progressText = document.getElementById('onboarding-progress-text');
-  
+
   // Assignment View States
   const lockedView = document.getElementById('assignment-locked');
   const unlockedView = document.getElementById('assignment-unlocked');
   const countdownText = document.getElementById('countdown-timer');
   const timerStatusText = document.getElementById('timer-status-text');
-  
+
   // Tabs & Details
   const tabButtons = document.querySelectorAll('.track-tab-btn');
   const detailTitle = document.getElementById('detail-title');
@@ -166,7 +166,7 @@ NayePankh Foundation Tech Team`
   const detailSpecs = document.getElementById('detail-specs');
   const btnDownloadGuidelines = document.getElementById('btn-download-guidelines');
   const btnOpenSubmission = document.getElementById('btn-open-submission');
-  
+
   // Submission Form elements
   const submissionFormBox = document.getElementById('submission-form-box');
   const btnCloseSubmission = document.getElementById('btn-close-submission');
@@ -177,16 +177,16 @@ NayePankh Foundation Tech Team`
   const lblGithubFigma = document.getElementById('lbl-github-figma');
   const inputGithub = document.getElementById('submit-github');
   const btnConfirmSubmit = document.getElementById('btn-confirm-submit');
-  
+
   // FAQ Search & Accordion
   const faqSearchInput = document.getElementById('faq-search');
   const faqItems = document.querySelectorAll('.faq-item');
-  
+
   // Contact Form
   const techSupportForm = document.getElementById('tech-support-form');
   const contactSuccessAlert = document.getElementById('contact-success-alert');
   const btnSubmitSupport = document.getElementById('btn-submit-support');
-  
+
   // Header animation
   const mainHeader = document.getElementById('main-header');
 
@@ -198,7 +198,7 @@ NayePankh Foundation Tech Team`
     facebook: false,
     twitter: false
   };
-  
+
   let currentSelectedTrack = 'frontend';
   let confettiTriggered = false;
 
@@ -212,7 +212,7 @@ NayePankh Foundation Tech Team`
         console.error("Error parsing saved onboarding state", e);
       }
     }
-    
+
     // Set checkboxes visual state
     PLATFORMS.forEach(platform => {
       const checkbox = document.getElementById(`check-${platform}`);
@@ -220,7 +220,7 @@ NayePankh Foundation Tech Team`
         checkbox.checked = onboardingState[platform] || false;
       }
     });
-    
+
     updateOnboardingUI(false); // Update without triggering initial confetti
   }
 
@@ -239,21 +239,21 @@ NayePankh Foundation Tech Team`
 
   function updateOnboardingUI(shouldTriggerEffects = true) {
     const progressPercent = calculateProgress();
-    
+
     // 1. Update text overlay
     progressText.textContent = `${Math.round(progressPercent)}%`;
-    
+
     // 2. Update SVG stroke-dashoffset (total length: 377)
     const offset = 377 - (progressPercent / 100) * 377;
     progressCircle.style.strokeDashoffset = offset;
-    
+
     // 3. Update summary pills and milestone check indicators
     PLATFORMS.forEach(platform => {
       const isCompleted = onboardingState[platform];
       const pill = document.getElementById(`pill-${platform}`);
       const milestone = document.getElementById(`milestone-${platform}`);
       const card = document.getElementById(`card-${platform}`);
-      
+
       if (pill) {
         if (isCompleted) {
           pill.classList.add('completed');
@@ -263,7 +263,7 @@ NayePankh Foundation Tech Team`
           pill.innerHTML = `<i class="fa-brands fa-${platform === 'twitter' ? 'x-twitter' : platform === 'linkedin' ? 'linkedin-in' : platform === 'facebook' ? 'facebook-f' : platform}"></i> ${platform.charAt(0).toUpperCase() + platform.slice(1)}`;
         }
       }
-      
+
       if (milestone) {
         if (isCompleted) {
           milestone.classList.add('checked');
@@ -287,12 +287,12 @@ NayePankh Foundation Tech Team`
         }
       }
     });
-    
+
     // 4. Lock/Unlock Assignment Section
     if (progressPercent === 100) {
       lockedView.style.display = 'none';
       unlockedView.style.display = 'block';
-      
+
       if (shouldTriggerEffects && !confettiTriggered) {
         triggerConfettiBlast();
         confettiTriggered = true;
@@ -339,7 +339,7 @@ NayePankh Foundation Tech Team`
     const now = new Date();
     let target = new Date();
     target.setHours(18, 0, 0, 0); // 6:00 PM today
-    
+
     if (now.getTime() >= target.getTime()) {
       // If it's already past 6:00 PM, let's set a target of 2.5 hours from current session start
       const savedTarget = localStorage.getItem('nayepankh_target_release');
@@ -360,18 +360,18 @@ NayePankh Foundation Tech Team`
     function tick() {
       const currentTime = new Date().getTime();
       const difference = target.getTime() - currentTime;
-      
+
       if (difference <= 0) {
         // Countdown completed
         countdownText.textContent = "RELEASED";
         timerStatusText.textContent = "Assignment Status";
         timerStatusText.style.color = "var(--success)";
         countdownText.style.color = "var(--success)";
-        
+
         // Enhance UI labels
         document.getElementById('assignment-timer-container').style.background = 'rgba(16, 185, 129, 0.1)';
         document.getElementById('assignment-timer-container').style.borderColor = 'rgba(16, 185, 129, 0.25)';
-        
+
         // Release alert
         const banner = document.querySelector('.announcement-banner');
         if (banner) {
@@ -382,17 +382,17 @@ NayePankh Foundation Tech Team`
         }
         return;
       }
-      
+
       const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-      
+
       const padZero = (num) => num.toString().padStart(2, '0');
-      
+
       countdownText.textContent = `${padZero(hours)}:${padZero(minutes)}:${padZero(seconds)}`;
       setTimeout(tick, 1000);
     }
-    
+
     tick();
   }
 
@@ -403,14 +403,14 @@ NayePankh Foundation Tech Team`
     btn.addEventListener('click', (e) => {
       // Remove active from all buttons
       tabButtons.forEach(t => t.classList.remove('active'));
-      
+
       // Get current button block
       const targetBtn = e.currentTarget;
       targetBtn.classList.add('active');
-      
+
       const track = targetBtn.getAttribute('data-track');
       currentSelectedTrack = track;
-      
+
       // Load details into right container with a nice animation fade effect
       const details = TRACKS_DB[track];
       if (details) {
@@ -418,19 +418,19 @@ NayePankh Foundation Tech Team`
         const container = document.getElementById('track-details-container');
         container.style.opacity = 0;
         container.style.transform = 'translateY(5px)';
-        
+
         setTimeout(() => {
           detailTitle.textContent = details.title;
           detailDifficulty.textContent = details.difficulty;
-          
+
           // Difficulty Class update
           detailDifficulty.className = 'track-difficulty-badge';
           if (details.difficulty === 'Intermediate') {
             detailDifficulty.classList.add('intermediate');
           }
-          
+
           detailDescription.textContent = details.description;
-          
+
           // Load specs
           detailSpecs.innerHTML = '';
           details.specs.forEach(spec => {
@@ -438,14 +438,14 @@ NayePankh Foundation Tech Team`
             li.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${spec}`;
             detailSpecs.appendChild(li);
           });
-          
+
           // Sync Track dropdown value
           submitTrackDropdown.value = track;
-          
+
           // Adjust labels for GitHub vs Figma
           lblGithubFigma.textContent = details.label;
           inputGithub.placeholder = details.placeholder;
-          
+
           // Re-fade in
           container.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
           container.style.opacity = 1;
@@ -471,12 +471,12 @@ NayePankh Foundation Tech Team`
       const content = details.guidelines;
       const blob = new Blob([content], { type: 'text/markdown;charset=utf-8;' });
       const url = URL.createObjectURL(blob);
-      
+
       const link = document.createElement('a');
       link.setAttribute('href', url);
       link.setAttribute('download', `${currentSelectedTrack}_internship_guidelines.md`);
       link.style.visibility = 'hidden';
-      
+
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -504,51 +504,51 @@ NayePankh Foundation Tech Team`
   // Form submission submit button action
   assignmentSubmitForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    
+
     // Simulate Loading State on Confirm Submit button
     btnConfirmSubmit.disabled = true;
     const originalBtnText = btnConfirmSubmit.textContent;
     btnConfirmSubmit.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Submitting...`;
-    
+
     setTimeout(() => {
       // Show success alert
       submissionSuccessAlert.classList.add('active');
-      
+
       // Scroll to alert
       submissionSuccessAlert.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      
+
       // Restore Button
       btnConfirmSubmit.disabled = false;
       btnConfirmSubmit.textContent = originalBtnText;
-      
+
       // Reset form controls except success banner
       document.getElementById('submit-name').value = '';
       document.getElementById('submit-email').value = '';
       document.getElementById('submit-github').value = '';
       document.getElementById('submit-hosted').value = '';
       document.getElementById('submit-notes').value = '';
-      
+
       // Trigger short celebrate confetti shower
       triggerConfettiBlast();
-      
+
       // Auto-hide form panel after 6 seconds
       setTimeout(() => {
         if (submissionFormBox.classList.contains('active')) {
           closeForm();
         }
       }, 6000);
-      
+
     }, 1500); // Simulated delay
   });
 
   // --- FAQs Filter Mechanism ---
   faqSearchInput.addEventListener('input', (e) => {
     const query = e.target.value.toLowerCase().trim();
-    
+
     faqItems.forEach(item => {
       const question = item.querySelector('.faq-question-btn span').textContent.toLowerCase();
       const answer = item.querySelector('.faq-answer-panel p').textContent.toLowerCase();
-      
+
       if (question.includes(query) || answer.includes(query)) {
         item.style.display = 'block';
       } else {
@@ -563,10 +563,10 @@ NayePankh Foundation Tech Team`
     btn.addEventListener('click', () => {
       const parent = btn.parentElement;
       const isActive = parent.classList.contains('active');
-      
+
       // Close all other FAQs
       faqItems.forEach(item => item.classList.remove('active'));
-      
+
       if (!isActive) {
         parent.classList.add('active');
       }
@@ -576,23 +576,23 @@ NayePankh Foundation Tech Team`
   // --- Tech Support Form Handler ---
   techSupportForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    
+
     btnSubmitSupport.disabled = true;
     const originalText = btnSubmitSupport.textContent;
     btnSubmitSupport.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> Sending...`;
-    
+
     setTimeout(() => {
       contactSuccessAlert.classList.add('active');
       btnSubmitSupport.disabled = false;
       btnSubmitSupport.textContent = originalText;
-      
+
       // Reset inputs
       techSupportForm.reset();
-      
+
       setTimeout(() => {
         contactSuccessAlert.classList.remove('active');
       }, 5000);
-      
+
     }, 1200);
   });
 
@@ -610,15 +610,15 @@ NayePankh Foundation Tech Team`
   const ctx = canvas.getContext('2d');
   let animationFrameId;
   let particles = [];
-  
+
   function resizeCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
   }
-  
+
   window.addEventListener('resize', resizeCanvas);
   resizeCanvas();
-  
+
   class ConfettiParticle {
     constructor() {
       this.x = Math.random() * canvas.width;
@@ -630,13 +630,13 @@ NayePankh Foundation Tech Team`
       this.rotation = Math.random() * 360;
       this.rotationSpeed = Math.random() * 4 - 2;
     }
-    
+
     update() {
       this.x += this.speedX;
       this.y += this.speedY;
       this.rotation += this.rotationSpeed;
     }
-    
+
     draw() {
       ctx.save();
       ctx.translate(this.x, this.y);
@@ -646,20 +646,20 @@ NayePankh Foundation Tech Team`
       ctx.restore();
     }
   }
-  
+
   function triggerConfettiBlast() {
     // Cancel previous animations if running
     cancelAnimationFrame(animationFrameId);
     particles = [];
-    
+
     // Spawn 150 particles
     for (let i = 0; i < 150; i++) {
       particles.push(new ConfettiParticle());
     }
-    
+
     function animate() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
+
       let active = false;
       particles.forEach(p => {
         p.update();
@@ -668,20 +668,20 @@ NayePankh Foundation Tech Team`
           active = true;
         }
       });
-      
+
       if (active) {
         animationFrameId = requestAnimationFrame(animate);
       } else {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
       }
     }
-    
+
     animate();
   }
 
-  // --- Theme Toggle Logic ---
+  // --- Theme Toggle Logic ----
   const themeToggleBtn = document.getElementById('theme-toggle-btn');
-  
+
   function initTheme() {
     const savedTheme = localStorage.getItem('nayepankh_theme');
     const isLight = savedTheme === 'light';
