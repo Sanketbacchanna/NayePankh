@@ -712,7 +712,7 @@ NayePankh Foundation Tech Team`
   }
 
 
-  // --- Load Saved States on Startup ---
+// --- Load Saved States on Startup ---
   initTheme();
   loadOnboardingState();
 });
