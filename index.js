@@ -689,6 +689,7 @@ NayePankh Foundation Tech Team`
     updateThemeIcon(isLight);
   }
 
+
   function updateThemeIcon(isLight) {
     if (themeToggleBtn) {
       const icon = themeToggleBtn.querySelector('i');
