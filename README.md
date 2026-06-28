@@ -76,4 +76,4 @@ NayePankh-Tech-Internship-Portal/
 
 **Sanket Bacchanna**
 
-GitHub: https://github.com/your-username
+GitHub: https://github.com/Sanketbacchanna
