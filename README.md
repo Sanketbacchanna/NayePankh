@@ -18,6 +18,7 @@ HTML5
 CSS3
 JavaScript (Vanilla JS)
 Font Awesome
+
 🎯 Purpose
 
 This project demonstrates modern frontend web development concepts, including responsive design, DOM manipulation, event handling, dynamic content rendering, and interactive user interfaces. It serves as a lightweight internship portal without requiring any backend or database.
